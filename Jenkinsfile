@@ -1,21 +1,35 @@
 pipeline{
     agent any
 
-    tools {
-         maven 'maven'
-         jdk 'java'
-    }
-
-    stages{
-        stage('checkout'){
-            steps{
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'github access', url: 'https://github.com/sreenivas449/java-hello-world-with-maven.git']]])
+   stages{
+            stage('Veified Branch'){
+                steps{
+                echo "$GIT_BRANCH"                    
+                }
             }
-        }
-        stage('build'){
+       stage('build'){
             steps{
                bat 'mvn package'
             }
         }
     }
-}
+    post { 
+        always { 
+            echo 'I will always say Hello!'
+              mail to: 'pl.shivashankar@gmail.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        aborted {
+            echo 'I was aborted'
+              mail to: 'pl.shivashankar@gmail.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+        }
+        failure {
+            mail to: 'pl.shivashankar@gmail.com',
+            subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+            body: "Something is wrong with ${env.BUILD_URL}"
+        }
+    }
+}    
