@@ -2,7 +2,7 @@ pipeline{
     agent any
 
    stages{
-       node ('linux'){
+       node ('QA environment'){
             stage('Veified Branch'){
                 steps{
                 echo "$GIT_BRANCH"                    
