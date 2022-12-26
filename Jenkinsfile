@@ -2,6 +2,7 @@ pipeline{
     agent any
 
    stages{
+       node ('linux'){
             stage('Veified Branch'){
                 steps{
                 echo "$GIT_BRANCH"                    
@@ -11,7 +12,8 @@ pipeline{
             steps{
                sh 'mvn package'
             }
-        }       
+        } 
+       }
     }
     post { 
         always { 
