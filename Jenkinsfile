@@ -13,9 +13,9 @@ pipeline{
             }
         }
        stage('Junit'){
-           steps {([$class: 'JUnitResultArchiver', 
+           step ([$class: 'JUnitResultArchiver', 
           testResults: 'test-results/**/test-results.xml'])
-                 }                  
+                                  
        }
     }
     post { 
