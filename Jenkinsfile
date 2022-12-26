@@ -11,12 +11,7 @@ pipeline{
             steps{
                sh 'mvn package'
             }
-        }
-       stage('Junit'){
-           step ([$class: 'JUnitResultArchiver', 
-          testResults: 'test-results/**/test-results.xml'])
-                                  
-       }
+        }       
     }
     post { 
         always { 
