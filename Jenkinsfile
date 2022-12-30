@@ -1,6 +1,8 @@
-pipeline{
-    agent any
-
+pipeline {
+agent { 
+    label 'QA environment' 
+    
+}
    stages{       
             stage('Veified Branch'){
                 steps{
